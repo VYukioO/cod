@@ -1,0 +1,60 @@
+package br.edu.fatec.les.util;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+
+public class ConnectionFactory {
+	public static Connection getConnection() {
+		String driver = "com.mysql.jdbc,Driver";
+		String url = "jdbc:mysql://localhost/lesQQuadros";
+		String user = "root";
+		String password = "root";
+		
+		try {
+			Class.forName(driver);
+			Connection conexao = 
+					DriverManager.getConnection(url, user, password);
+			return conexao;
+		} catch(SQLException | ClassNotFoundException e) {
+			return null;
+		}
+	}
+	
+	public static boolean closeConnection(Connection conn) {
+		if (conn != null) {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				System.err.println("ERRO: closeConnection(Connection conn)");
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public static void closeConnection(Connection conn, PreparedStatement pstm) {
+		if (pstm != null) {
+			try {
+				pstm.close();
+			} catch (SQLException e) {
+				System.err.println("ERRO: closeConnection(Connection conn, PreparedStatement pstm)");
+			}
+		}
+		closeConnection(conn);
+	}
+	
+	public static void closeConnection(Connection conn, PreparedStatement pstm, ResultSet rs) {
+		if (rs != null) {
+			try {
+				rs.close();
+			} catch (SQLException e) {
+				System.err.println("ERRO: closeConnection(Connection conn, PreparedStatement pstm, ResultSet rs)");
+			}
+		}
+		closeConnection(conn, pstm);
+	}
+}
