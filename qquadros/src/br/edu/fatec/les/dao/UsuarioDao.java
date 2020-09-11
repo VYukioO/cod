@@ -26,14 +26,15 @@ public class UsuarioDao implements IDao {
 		Usuario usu = (Usuario) entidade;
 		conn = ConnectionFactory.getConnection();
 		msg = new Mensagem();
+		
+		PreparedStatement pstm = null;
 		ResultSet rs;
 		
 		String sql =
 				"INSERT INTO tb_usuario "
 				+ "(usu_email, usu_senha, usu_ima_id, usu_ativo, usu_admin, usu_dtCadastro, usu_dtAtualizacao) "
-				+ "VALUES (?, ?, ?, true, ?, NOW(), NOW() ";
+				+ "VALUES (?, ?, ?, true, false, NOW(), NOW() ";
 		
-		PreparedStatement pstm = null;
 		
 		try {
 			String idImagem = imagemDao.salvar(usu.getImagem()).getMsg();
@@ -41,8 +42,11 @@ public class UsuarioDao implements IDao {
 			pstm = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			pstm.setString(1, usu.getEmail());
 			pstm.setString(2, usu.getSenha());
-			pstm.setInt(3, Integer.parseInt(idImagem));
-			pstm.setBoolean(4, usu.isAdmin());
+			System.out.println(idImagem);
+			pstm.setLong(3, Long.parseLong(idImagem));
+			System.out.println("set imagem");
+			System.out.println("atribuiu valores a sql");
+			pstm.executeUpdate();
 			
 			rs = pstm.getGeneratedKeys();
 			if(rs.next()) {
@@ -51,6 +55,8 @@ public class UsuarioDao implements IDao {
 				return msg;
 			}
 		} catch (SQLException e) {
+			System.out.println("erro aqui ");
+			System.out.println(e);
 			msg.setMsg("Ocorreu um erro durante a operação. Tente novamente.");
 			msg.setMsgStatus(MensagemStatus.ERRO);
 		} finally {

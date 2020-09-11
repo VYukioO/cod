@@ -11,6 +11,7 @@ public class UsuarioValidaDados implements IStrategy {
 	
 	@Override
 	public Mensagem execute(AEntidade entidade) {
+		System.out.println("Entrou usuarioValidaDados");
 		if (entidade instanceof Usuario) {
 			System.out.println("Validando dados de usuario");
 			

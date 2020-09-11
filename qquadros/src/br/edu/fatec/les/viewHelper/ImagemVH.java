@@ -18,7 +18,9 @@ public class ImagemVH implements IViewHelper {
 	public AEntidade getEntidade(HttpServletRequest request) {
 		Imagem ima = new Imagem();
 		String tarefa = request.getParameter("tarefa");
-		String base64String = request.getParameter("txtfile");
+		String base64String = request.getParameter("txtFile");
+		System.out.println("imagemVH");
+		System.out.println(base64String);
 		
 		if (tarefa.equals("atualizarCliente") || 
 				tarefa.equals("deletarCliente") || 
@@ -26,10 +28,13 @@ public class ImagemVH implements IViewHelper {
 			ima.setId(Long.parseLong(request.getParameter("txtImagemId")));
 		}
 		
-		if ((tarefa.equals("cadastrarCliente") || tarefa.equals("atualizarCliente")) &&
+		if ((tarefa.equals("cadastrarCliente") || tarefa.equals("atualizarCliente") || tarefa.equals("cadastrarUsuario")) &&
 				base64String != "") {
 			String[] strings = base64String.split(",");
 			String extension;
+			
+			System.out.println(tarefa);
+			System.out.println("strigs   " + strings);
 			
 			switch (strings[0]) {
 				case "data:image/jpeg;base64":

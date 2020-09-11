@@ -35,6 +35,14 @@ public class UsuarioVH implements IViewHelper {
 		usu.setAdmin(false);
 		usu.setEmail(request.getParameter("txtEmail"));
 		usu.setSenha(request.getParameter("txtSenha"));
+		System.out.println("usuario");
+		System.out.println(usu.getEmail());
+		System.out.println(usu.getSenha());
+		
+		
+		System.out.println("suaruoi vh");
+		System.out.println(imaVH.getEntidade(request));
+		System.out.println("ALO");
 		usu.setImagem((Imagem) imaVH.getEntidade(request));
 		
 		return usu;

@@ -51,7 +51,7 @@ public class Facade implements IFacade {
 		rnsCliente.add(clienteValidaDados);
 		rnsCliente.addAll(rnsUsuario);
 		
-		rnMap.put(Cliente.class.getName(), rnsUsuario);
+		rnMap.put(Usuario.class.getName(), rnsUsuario);
 		rnMap.put(Cliente.class.getName(), rnsCliente);
 	}
 	
@@ -60,6 +60,7 @@ public class Facade implements IFacade {
 		resultado = new Resultado();
 		msg = new Mensagem();
 		msgs = new ArrayList<Mensagem>();
+		System.out.println("facade");
 		
 		ArrayList<IStrategy> strategies = rnMap.get(entidadeDominio.getClass().getName());
 	
@@ -73,12 +74,13 @@ public class Facade implements IFacade {
 				}
 			}
 		}
-		
+		System.out.println("fez strategies");
 		if(!msgs.isEmpty()) {
+			System.out.println("TEM MENSAGEM");
 			resultado.setMsg(msgs);
 			return resultado;
 		}
-		
+		System.out.println("VIU MENSAGENS FACADE");
 		IDao daoEntidade = daoMap.get(entidadeDominio.getClass().getName());
 		
 		try {
@@ -88,6 +90,7 @@ public class Facade implements IFacade {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		System.out.println("fez dao");
 		return resultado;
 	}
 	

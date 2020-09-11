@@ -23,21 +23,23 @@ public class ImagemDao implements IDao{
 	public Mensagem salvar(AEntidade entidade) throws SQLException {
 		Imagem ima = (Imagem) entidade;
 		conn = ConnectionFactory.getConnection();
-		ResultSet rs;
 		msg = new Mensagem();
+
+		PreparedStatement pstm = null;
+		ResultSet rs;
 		
 		String sql =
 				"INSERT INTO tb_imagem "
 				+ "(ima_nome, ima_descricao, ima_caminho, ima_ativo, ima_dtCadastro, ima_dtAtualizacao) "
 				+ "VALUES (?, ?, ?, true, NOW(), NOW())";
 	
-		PreparedStatement pstm = null;
-		
+		System.out.println("IMAGEM DAO");
 		try {
 			pstm = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			pstm.setString(1, ima.getFoto());
 			pstm.setString(2, ima.getDescricao());
 			pstm.setString(3, ima.getCaminho());
+			System.out.println("perared" + pstm);
 			pstm.execute();
 			
 			rs = pstm.getGeneratedKeys();
