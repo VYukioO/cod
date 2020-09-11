@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
+<%@page import="br.edu.fatec.les.facade.Resultado"%>
+
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
@@ -22,6 +27,15 @@
 </head>
 
 <body>
+	<%
+		String login = "";
+		login = (String) session.getAttribute("status");
+		
+		if(login == "on"){
+			response.sendRedirect("clienteMenu.jsp");
+		}
+	
+	%>)
     <div id="wrapper">
         <nav class="navbar navbar-default top-navbar" role="navigation">
             <div class="navbar-header">
@@ -33,7 +47,7 @@
                 </button>
                 <a class="navbar-brand waves-effect waves-dark" href="index.jsp"><i class="large material-icons">track_changes</i> <strong>QQuadros</strong></a>
 
-                <div id="sideNav" class="waves-effect waves-dark" href=""><i class="material-icons dp48">toc</i></div>
+                <div id="sideNav" class="waves-effect waves-dark"><i class="material-icons dp48">toc</i></div>
             </div>
         </nav>
         <!-- Dropdown Structure -->
@@ -43,59 +57,6 @@
             <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
             </li>
             <li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-            </li>
-        </ul>
-        <ul id="dropdown2" class="dropdown-content w250">
-            <li>
-                <a href="#">
-                    <div>
-                        <i class="fa fa-comment fa-fw"></i> New Comment
-                        <span class="pull-right text-muted small">4 min</span>
-                    </div>
-                </a>
-            </li>
-            <li class="divider"></li>
-            <li>
-                <a href="#">
-                    <div>
-                        <i class="fa fa-twitter fa-fw"></i> 3 New Followers
-                        <span class="pull-right text-muted small">12 min</span>
-                    </div>
-                </a>
-            </li>
-            <li class="divider"></li>
-            <li>
-                <a href="#">
-                    <div>
-                        <i class="fa fa-envelope fa-fw"></i> Message Sent
-                        <span class="pull-right text-muted small">4 min</span>
-                    </div>
-                </a>
-            </li>
-            <li class="divider"></li>
-            <li>
-                <a href="#">
-                    <div>
-                        <i class="fa fa-tasks fa-fw"></i> New Task
-                        <span class="pull-right text-muted small">4 min</span>
-                    </div>
-                </a>
-            </li>
-            <li class="divider"></li>
-            <li>
-                <a href="#">
-                    <div>
-                        <i class="fa fa-upload fa-fw"></i> Server Rebooted
-                        <span class="pull-right text-muted small">4 min</span>
-                    </div>
-                </a>
-            </li>
-            <li class="divider"></li>
-            <li>
-                <a class="text-center" href="#">
-                    <strong>See All Alerts</strong>
-                    <i class="fa fa-angle-right"></i>
-                </a>
             </li>
         </ul>
         <!--/. NAV TOP  -->
@@ -140,11 +101,34 @@
         </nav>
         <!-- /. NAV SIDE  -->
         <div id="page-wrapper">
-            <div class="header">
-                <h1 class="page-header">
-                </h1>
-            </div>
             <div id="page-inner">
+				<c:forEach var="mensagem" items="${resultado.getMsgs()}">
+					<c:choose>
+						<c:when test="${mensagem.getMsgStatus() == 'ERRO'}">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="card-content">
+										<div class="card">
+											<div class="alert alert-danger">${mensagem.getMsg()}</div>
+		                            	</div>
+                        			</div>
+                    			</div>
+                			</div>
+                		</c:when>
+                		<c:otherwise>
+                			<div class="row">
+                				<div class="col-md-12">
+                					<div class="card-content">
+		                            	<div class="card">
+		                            		<div class="alert alert-success">${mensagem.getMsg()}</div>
+		                            	</div>
+		                            </div>
+								</div>
+                			</div>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+            
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
@@ -152,21 +136,23 @@
                                 <h2>Login</h2>
                             </div>
                             <div class="card-content">
-                                <form class="col s12" action="index.jsp">
+                                <form class="col s12" method="POST" action="app">
                                     <div class="row">
                                         <div class="input-field col s12">
-                                            <input id="email" type="text" class="validate">
-                                            <label for="email">E-mail</label>
+                                            <input type="email" id="txtEmail" name="txtEmail" class="validate">
+                                            <label for="txtEmail">E-mail</label>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="input-field col s12">
-                                            <input id="senha" type="text" class="validate">
-                                            <label for="senha">Senha</label>
+                                            <input type="password" id="txtSenha" name="txtSenha" class="validate">
+                                            <label for="txtSenha">Senha</label>
                                         </div>
                                     </div>
+                                    <input type="hidden" name="tarefa" value="loginUsuario"/>
                                     <div class="row">
-                                        <button id="Entrar" class="waves-effect waves-light btn" type="submit">Entrar</button>
+                                        <button class="btn waves-effect waves-light" id="btnEntrar" type="submit">Entrar</button>
+                                    	Não é cadastrado? <a href="cadUsuario.jsp">Cadastre-se já</a>
                                     </div>
                                 </form>
                                 <div class="clearBoth"></div>

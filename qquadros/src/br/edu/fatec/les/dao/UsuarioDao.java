@@ -173,7 +173,7 @@ public class UsuarioDao implements IDao {
 				u.setAtivo(rs.getBoolean("usu_ativo"));
 				u.setDtCadastro(rs.getObject("usu_dtCadastro", LocalDateTime.class));
 				u.setDtAtualizacao(rs.getObject("usu_dtAtualizacao", LocalDateTime.class));
-				
+
 				usuarios.add(u);
 			}
 		} catch (SQLException e) {

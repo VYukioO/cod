@@ -9,17 +9,19 @@ import java.sql.SQLException;
 
 public class ConnectionFactory {
 	public static Connection getConnection() {
-		String driver = "com.mysql.jdbc,Driver";
-		String url = "jdbc:mysql://localhost/lesQQuadros";
+		// String driver = "com.mysql.jdbc.Driver";
+		String driver = "com.mysql.cj.jdbc.Driver";
+		String url = "jdbc:mysql://localhost/lesQQuadros?useTimezone=true&serverTimezone=UTC";
 		String user = "root";
 		String password = "root";
 		
 		try {
 			Class.forName(driver);
-			Connection conexao = 
-					DriverManager.getConnection(url, user, password);
-			return conexao;
+			Connection conn = DriverManager.getConnection(url, user, password);
+			
+			return conn;
 		} catch(SQLException | ClassNotFoundException e) {
+			System.out.println(e);
 			return null;
 		}
 	}

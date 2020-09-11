@@ -1,4 +1,4 @@
-Ôªø<!DOCTYPE html>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
@@ -33,7 +33,7 @@
                 </button>
                 <a class="navbar-brand waves-effect waves-dark" href="index.jsp"><i class="large material-icons">track_changes</i> <strong>QQuadros</strong></a>
 
-                <div id="sideNav" class="waves-effect waves-dark" href=""><i class="material-icons dp48">toc</i></div>
+                <div id="sideNav" class="waves-effect waves-dark" href=""><i class="material-icons dp48">toc</i>AAAA</div>
             </div>
 
             <ul class="nav navbar-top-links navbar-right">
@@ -133,10 +133,10 @@
                                 <a href="edtSenha.jsp" class="active-menu waves-effect waves-dark"><i class="fa fa-edit"></i>Alterar Senha</a>
                             </li>
                             <li>
-                                <a href="endereco.jsp" class="waves-effect waves-dark"><i class="fa fa-road"></i>Endere√ßo</a>
+                                <a href="endereco.jsp" class="waves-effect waves-dark"><i class="fa fa-road"></i>EndereÁo</a>
                             </li>
                             <li>
-                                <a href="cartao.jsp" class="waves-effect waves-dark"><i class="fa fa-credit-card"></i>Cart√µes</a>
+                                <a href="cartao.jsp" class="waves-effect waves-dark"><i class="fa fa-credit-card"></i>Cartıes</a>
                             </li>
                         </ul>
                     </li>

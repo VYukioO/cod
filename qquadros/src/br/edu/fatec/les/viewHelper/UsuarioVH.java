@@ -43,12 +43,11 @@ public class UsuarioVH implements IViewHelper {
 	@Override
 	public void setEntidade(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String tarefa = req.getParameter("tarefa");
-		
 		if (tarefa.equals("alterarSenha")) {
-			req.getRequestDispatcher("clienteMenu.jsp").forward(req, resp);
+			req.getRequestDispatcher("edtSenha.jsp").forward(req, resp);
 		} else {
 			Resultado resultado = new Resultado();
-			resultado = (Resultado) req.getAttribute("resultados");
+			resultado = (Resultado) req.getAttribute("resultado");
 			if (resultado.getEntidade().isEmpty() || resultado.getEntidade() == null) {
 				Mensagem msg = new Mensagem();
 				msg.setMsg("Login e/ou senha inválido(s)!");
@@ -61,7 +60,7 @@ public class UsuarioVH implements IViewHelper {
 				resultado.setMsg(msgs);
 				
 				req.setAttribute("resultado", resultado);
-				req.getRequestDispatcher("usuarioLogin.jsp").forward(req, resp);
+				req.getRequestDispatcher("login.jsp").forward(req, resp);
 			} else {
 				Usuario usu = (Usuario) resultado.getEntidade().get(0);
 				
@@ -85,10 +84,8 @@ public class UsuarioVH implements IViewHelper {
 				session.setAttribute("status", "on");
 				session.setAttribute("usuario", usu);
 				
-				resp.sendRedirect("clienteMenu.jsp");
+				resp.sendRedirect("index.jsp");
 			}
 		}
-		
 	}
-
 }

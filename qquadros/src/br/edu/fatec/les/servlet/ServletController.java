@@ -1,6 +1,7 @@
 package br.edu.fatec.les.servlet;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -23,25 +24,24 @@ import br.edu.fatec.les.viewHelper.IViewHelper;
 import br.edu.fatec.les.viewHelper.UsuarioVH;
 
 @WebServlet(name = "servlet", urlPatterns = "/app")
-public class Servlet extends HttpServlet {
+public class ServletController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private static Map<String, ICommand> commandMap;
     private static Map<String, IViewHelper> vhMap;
     private static String tarefa = null;
     private static IViewHelper vh;
 	
-    public Servlet() {
+    public ServletController() {
+    	commandMap = new HashMap<String, ICommand>();
+    	vhMap = new HashMap<String, IViewHelper>();
+    	
     	// Usuario
-        commandMap.put("cadastrarUsuario", new SalvarCommand());
-        commandMap.put("editarUsuario", new AtualizarCommand());
-        commandMap.put("deletarUsuario", new DeletarCommand());
-        commandMap.put("consultarUsuario", new ConsultarCommand());
-        commandMap.put("atualizarUsuario", new AtualizarCommand());
-        vhMap.put("cadastrarUsuario", new UsuarioVH());
-        vhMap.put("editarUsuario", new UsuarioVH());
-        vhMap.put("deletarUsuario", new UsuarioVH());
-        vhMap.put("consultarUsuario", new UsuarioVH());
-        vhMap.put("atualizarUsuario", new UsuarioVH());
+        commandMap.put("loginUsuario", new ConsultarCommand());
+        commandMap.put("logoutUsuario", new ConsultarCommand());
+        commandMap.put("alterarSenha", new AtualizarCommand());
+        vhMap.put("loginUsuario", new UsuarioVH());
+        vhMap.put("logoutUsuario", new UsuarioVH());
+        vhMap.put("alterarSenha", new UsuarioVH());
 
     	// Cliente
         commandMap.put("cadastrarCliente", new SalvarCommand());
@@ -89,6 +89,7 @@ public class Servlet extends HttpServlet {
 			
 			vh.setEntidade(req, resp);
 		} catch (Exception e) {
+			System.out.println(e);
 			System.err.println(e.toString());
 		}
     }
