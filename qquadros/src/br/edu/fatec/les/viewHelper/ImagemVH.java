@@ -20,7 +20,8 @@ public class ImagemVH implements IViewHelper {
 		String tarefa = request.getParameter("tarefa");
 		String base64String = request.getParameter("txtFile");
 		System.out.println("imagemVH");
-		System.out.println(base64String);
+		System.out.println(tarefa);
+		System.out.println("txtFile: " + base64String);
 		
 		if (tarefa.equals("atualizarCliente") || 
 				tarefa.equals("deletarCliente") || 
@@ -28,12 +29,13 @@ public class ImagemVH implements IViewHelper {
 			ima.setId(Long.parseLong(request.getParameter("txtImagemId")));
 		}
 		
+		System.out.println("SETOU ID DA IMAGEM(se tiver)");
 		if ((tarefa.equals("cadastrarCliente") || tarefa.equals("atualizarCliente") || tarefa.equals("cadastrarUsuario")) &&
 				base64String != "") {
 			String[] strings = base64String.split(",");
 			String extension;
 			
-			System.out.println(tarefa);
+			System.out.println("IF CADASTRO");
 			System.out.println("strigs   " + strings);
 			
 			switch (strings[0]) {
@@ -53,7 +55,7 @@ public class ImagemVH implements IViewHelper {
 			
 			String imagem = request.getParameter("txtCpf") + "." + extension;
 			byte[] data = DatatypeConverter.parseBase64Binary(strings[1]);
-			String path = "";
+			String path = "C:/Users/Victor/Documents/GitHub/cod/qquadros/WebContent/img/" + imagem;
 			File file = new File(path);
 			
 			try {
@@ -67,7 +69,12 @@ public class ImagemVH implements IViewHelper {
 			ima.setFoto(imagem);
 			ima.setDescricao("Imagem " + imagem);
 			ima.setCaminho("./img/" + imagem);
+			System.out.println("ATRIBUINDO IMAGE");
+			System.out.println(ima.getCaminho());
+			System.out.println(ima.getDescricao());
+			System.out.println(ima.getFoto());
 		}
+		System.out.println("RETURN IMAGE");
 		return ima;
 	}
 

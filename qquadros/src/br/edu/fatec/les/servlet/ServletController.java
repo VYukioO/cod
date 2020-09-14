@@ -87,7 +87,7 @@ public class ServletController extends HttpServlet {
 			System.out.println(vh.toString());
 			System.out.println(req);
 			AEntidade entidade = vh.getEntidade(req);
-			System.out.println(entidade);
+			System.out.println("LINHA 90 SERVLET CONTORL");
 			ICommand command = commandMap.get(tarefa);
 			System.out.println(command);
 			resultado = command.execute(entidade);

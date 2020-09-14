@@ -26,6 +26,7 @@ public class UsuarioDao implements IDao {
 		Usuario usu = (Usuario) entidade;
 		conn = ConnectionFactory.getConnection();
 		msg = new Mensagem();
+		System.out.println("USUARIODAO SALVAR");
 		
 		PreparedStatement pstm = null;
 		ResultSet rs;
@@ -38,11 +39,11 @@ public class UsuarioDao implements IDao {
 		
 		try {
 			String idImagem = imagemDao.salvar(usu.getImagem()).getMsg();
+			System.out.println(idImagem);
 			
 			pstm = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			pstm.setString(1, usu.getEmail());
 			pstm.setString(2, usu.getSenha());
-			System.out.println(idImagem);
 			pstm.setLong(3, Long.parseLong(idImagem));
 			System.out.println("set imagem");
 			System.out.println("atribuiu valores a sql");

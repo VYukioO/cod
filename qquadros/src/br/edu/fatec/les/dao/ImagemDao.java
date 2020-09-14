@@ -35,11 +35,14 @@ public class ImagemDao implements IDao{
 	
 		System.out.println("IMAGEM DAO");
 		try {
+			System.out.println(ima.getFoto());
+			System.out.println(ima.getDescricao());
+			System.out.println(ima.getCaminho());
 			pstm = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			pstm.setString(1, ima.getFoto());
 			pstm.setString(2, ima.getDescricao());
 			pstm.setString(3, ima.getCaminho());
-			System.out.println("perared" + pstm);
+			System.out.println("perared " + pstm);
 			pstm.execute();
 			
 			rs = pstm.getGeneratedKeys();
@@ -48,6 +51,7 @@ public class ImagemDao implements IDao{
 				msg.setMsgStatus(MensagemStatus.OPERACAO);
 			}
 		} catch (SQLException e) {
+			System.out.println(e);
 			msg.setMsg("Ocorreu um erro durante a operação. Tente novamente.");
 			msg.setMsgStatus(MensagemStatus.ERRO);
 		} finally {

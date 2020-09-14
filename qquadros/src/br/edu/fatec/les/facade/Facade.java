@@ -74,16 +74,22 @@ public class Facade implements IFacade {
 				}
 			}
 		}
+		
 		System.out.println("fez strategies");
 		if(!msgs.isEmpty()) {
 			System.out.println("TEM MENSAGEM");
 			resultado.setMsg(msgs);
+			for (Mensagem m : resultado.getMsgs()) {
+				System.out.println("qw");
+				System.out.println(m.getMsg());
+			}
 			return resultado;
 		}
 		System.out.println("VIU MENSAGENS FACADE");
 		IDao daoEntidade = daoMap.get(entidadeDominio.getClass().getName());
 		
 		try {
+			System.out.println(entidadeDominio);
 			msg = daoEntidade.salvar(entidadeDominio);
 			msgs.add(msg);
 			resultado.setMsg(msgs);			
