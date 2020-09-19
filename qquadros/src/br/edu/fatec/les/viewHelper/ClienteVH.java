@@ -1,7 +1,9 @@
 package br.edu.fatec.les.viewHelper;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +39,7 @@ public class ClienteVH implements IViewHelper {
 			
 			cli.setNome(request.getParameter("txtNome"));
 			cli.setGenero(Generos.valueOf(request.getParameter("txtGenero")));
-			cli.setDtNascimento(LocalDateTime.parse(request.getParameter("txtDtNascimento")));
+			cli.setDtNascimento(LocalDate.parse(request.getParameter("txtDtNascimento")));
 			cli.setCpf(request.getParameter("txtCpf"));
 			cli.setTelefone(request.getParameter("txtTelefone"));
 			cli.setUsuario((Usuario) usuarioVH.getEntidade(request));
@@ -55,6 +57,7 @@ public class ClienteVH implements IViewHelper {
 				cli.setUsuario((Usuario) usuarioVH.getEntidade(request));
 			}
 		}
+		
 		return cli;
 	}
 
@@ -100,10 +103,10 @@ public class ClienteVH implements IViewHelper {
 				if (tarefa.equals("atualizarCliente")) {
 					req.getRequestDispatcher("clienteLista.jsp").forward(req, resp);
 				} else {
-					req.getRequestDispatcher("usuarioLogin.jsp").forward(req, resp);
+					req.getRequestDispatcher("login.jsp").forward(req, resp);
 				}
 			} else {
-				req.getRequestDispatcher("usuarioLogin.jsp").forward(req, resp);
+				req.getRequestDispatcher("login.jsp").forward(req, resp);
 			}
 		} else if (tarefa.equals("deletarCliente")) {
 			req.getRequestDispatcher("clienteLista.jsp").forward(req, resp);

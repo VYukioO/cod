@@ -29,8 +29,8 @@ public class EnderecoDao implements IDao {
 		
 		String sql =
 				"INSERT INTO tb_endereco "
-				+ "(end_logradouro, end_numero, end_bairro, end_cid_id, end_complemento, end_referencia, end_cep, end_favorito, end_cli_id, cid_nome, end_ativo, end_dtCadastro, end_dtAtualizacao) "
-				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, true, NOW(), NOW()) ";
+				+ "(end_logradouro, end_numero, end_bairro, end_cid_id, end_complemento, end_referencia, end_cep, end_favorito, end_cli_id, end_nome, end_ativo, end_dtCadastro, end_dtAtualizacao) "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, true, NOW(), NOW()) ";
 		
 		PreparedStatement pstm = null;
 		

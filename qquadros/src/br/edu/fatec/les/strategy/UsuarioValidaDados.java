@@ -1,24 +1,20 @@
 package br.edu.fatec.les.strategy;
 
 import br.edu.fatec.les.dominio.AEntidade;
-import br.edu.fatec.les.dominio.modelo.Usuario;
+import br.edu.fatec.les.dominio.modelo.Cliente;
 import br.edu.fatec.les.facade.Mensagem;
 import br.edu.fatec.les.facade.MensagemStatus;
 
 public class UsuarioValidaDados implements IStrategy {
-	Usuario usu = new Usuario();
+	Cliente cli = new Cliente();
 	Mensagem msg = new Mensagem();
 	
 	@Override
 	public Mensagem execute(AEntidade entidade) {
-		usu = (Usuario) entidade;
-		System.out.println("Entrou usuarioValidaDados");
-		if (entidade instanceof Usuario) {
-			System.out.println("Validando dados de usuario");
-			System.out.println(entidade);
+		cli = (Cliente) entidade;
+		if (entidade instanceof Cliente) {
 			
-			
-			if (usu.getEmail() == null) {
+			if (cli.getUsuario().getEmail() == null) {
 				if (msg.getMsg() == null) {
 					msg.setMsg("E-mail");
 				} else {
@@ -26,7 +22,7 @@ public class UsuarioValidaDados implements IStrategy {
 				}
 				msg.setMsgStatus(MensagemStatus.ERRO);				
 			}
-			if (usu.getSenha() == null) {
+			if (cli.getUsuario().getSenha() == null) {
 				if (msg.getMsg() == null) {
 					msg.setMsg("Senha");
 				} else {
@@ -35,11 +31,11 @@ public class UsuarioValidaDados implements IStrategy {
 				msg.setMsgStatus(MensagemStatus.ERRO);
 			}
 			if (msg.getMsgStatus() == MensagemStatus.ERRO) {
-				msg.setMsg("Campo(s) " + msg.getMsg() + " não preenchido(s) !");
+				msg.setMsg("Campo(s) " + msg.getMsg() + " nï¿½o preenchido(s) !");
 				return msg;
 			}
 			
-			if (usu.getEmail().trim().equals("")) {
+			if (cli.getUsuario().getEmail().trim().equals("")) {
 				if (msg.getMsg() == null) {
 					msg.setMsg("E-mail");
 				} else {
@@ -47,7 +43,7 @@ public class UsuarioValidaDados implements IStrategy {
 				}
 				msg.setMsgStatus(MensagemStatus.ERRO);
 			}
-			if (usu.getSenha().trim().equals("")) {
+			if (cli.getUsuario().getSenha().trim().equals("")) {
 				if (msg.getMsg() == null) {
 					msg.setMsg("Senha");
 				} else {
@@ -56,11 +52,11 @@ public class UsuarioValidaDados implements IStrategy {
 				msg.setMsgStatus(MensagemStatus.ERRO);
 			}
 			if (msg.getMsgStatus() == MensagemStatus.ERRO) {
-				msg.setMsg("Campo(s) " + msg.getMsg() + " são obrigatorio(s) !");
+				msg.setMsg("Campo(s) " + msg.getMsg() + " sï¿½o obrigatorio(s) !");
 				return msg;
 			}
 		} else {
-			msg.setMsg("Deve ser registrado um usuário.");
+			msg.setMsg("Deve ser registrado um usuï¿½rio.");
 			msg.setMsgStatus(MensagemStatus.ERRO);
 		}
 		

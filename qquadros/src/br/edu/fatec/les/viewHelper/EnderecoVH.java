@@ -23,8 +23,31 @@ public class EnderecoVH implements IViewHelper {
 		Endereco end = new Endereco();
 		ArrayList<Endereco> enderecos = new ArrayList<Endereco>();
 
-		if (request.getParameterValues("txtEndereco") == null) {
-			return enderecos;
+		if (tarefa.equals("cadastrarCliente")) {
+			ClienteVH clienteVH = new ClienteVH();
+
+			end.setNome(request.getParameter("txtDescricao"));
+			end.setBairro(request.getParameter("txtBairro"));
+			end.setCep(request.getParameter("txtCep"));
+			end.setNumero((Integer.parseInt(request.getParameter("txtNumero"))));
+			if (request.getParameter("txtComplemento") == "") {
+				end.setComplemento(null);
+			} else {
+				end.setComplemento(request.getParameter("txtComplemento"));
+			}
+			if (request.getParameter("txtReferencia") == "") {
+				end.setComplemento(null);
+			} else {
+				end.setComplemento(request.getParameter("txtReferencia"));
+			}
+			end.setLogradouro("txtLogradouro");
+			end.setFavorito(true);
+
+			request.setAttribute("txtCidadeId", request.getParameter("txtCidadeId"));
+
+			end.setCidade((Cidade) cidadeVH.getEntidade(request));
+			
+			enderecos.add(end);
 		} else {
 			String[] enderecosForm = request.getParameterValues("txtEndereco");
 			for (int i = 0; i < enderecosForm.length; i++) {
@@ -38,10 +61,11 @@ public class EnderecoVH implements IViewHelper {
 					}
 				}
 
-				end.setNome(request.getParameter("txtDescricaoEndereco"));
+				end.setNome(request.getParameter("txtDescricao"));
 				end.setBairro(request.getParameter("txtBairro"));
 				end.setCep(request.getParameter("txtCep"));
 				end.setNumero((Integer.parseInt(request.getParameter("txtNumero"))));
+
 				if (request.getParameter("txtComplemento") == "") {
 					end.setComplemento(null);
 				} else {
@@ -69,11 +93,11 @@ public class EnderecoVH implements IViewHelper {
 		Endereco end = new Endereco();
 		String tarefa = request.getParameter("tarefa");
 
-		if (tarefa.equals("adicionarEndereco")) {
+		if (tarefa.equals("adicionarCliente")) {
 			CidadeVH cidadeVH = new CidadeVH();
 			ClienteVH clienteVH = new ClienteVH();
 
-			end.setNome(request.getParameter("txtDescricaoEndereco"));
+			end.setNome(request.getParameter("txtDescricao"));
 			end.setBairro(request.getParameter("txtBairro"));
 			end.setCep(request.getParameter("txtCep"));
 			end.setNumero((Integer.parseInt(request.getParameter("txtNumero"))));
@@ -88,7 +112,7 @@ public class EnderecoVH implements IViewHelper {
 				end.setComplemento(request.getParameter("txtReferencia"));
 			}
 			end.setLogradouro("txtLogradouro");
-			end.setFavorito(Boolean.parseBoolean(request.getParameter("txtFavorito")));
+			end.setFavorito(true);
 			end.setCliente((Cliente) clienteVH.getEntidade(request));
 
 			request.setAttribute("txtCidadeId", request.getParameter("txtCidadeId"));

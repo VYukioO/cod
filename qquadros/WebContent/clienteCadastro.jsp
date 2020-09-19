@@ -261,7 +261,8 @@
         <div class="modal-body mx-3">
           <div class="form-row">
             <div class="col mb-3 md-form">
-              <label for="txtNomeImpressoModal">Nome Impresso*</label> <input type="text" class="form-control"
+              <label for="txtNomeImpressoModal">Nome Impresso*</label> 
+              <input type="text" class="form-control"
                 id="txtNomeImpressoModal" required maxlength="100">
             </div>		
 			<div class="col mb-3">

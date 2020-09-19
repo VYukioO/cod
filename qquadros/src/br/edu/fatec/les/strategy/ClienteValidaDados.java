@@ -12,8 +12,7 @@ public class ClienteValidaDados implements IStrategy {
 	@Override
 	public Mensagem execute(AEntidade entidade) {
 		if (entidade instanceof Cliente) {
-			System.out.println("Validando dados de cliente");
-			
+			cli = (Cliente) entidade;
 			if(cli.getNome() == null) {
 				msg.setMsg("Nome");
 				msg.setMsgStatus(MensagemStatus.ERRO);
@@ -43,18 +42,17 @@ public class ClienteValidaDados implements IStrategy {
 			}
 			if(cli.getGenero() == null) {
 				if (msg.getMsg() == null) {
-					msg.setMsg("Gênero");
+					msg.setMsg("Gï¿½nero");
 				} else {
-					msg.setMsg(msg.getMsg() + ", Gênero");
+					msg.setMsg(msg.getMsg() + ", Gï¿½nero");
 				}
 				msg.setMsgStatus(MensagemStatus.ERRO);
 			}
 			
 			if (msg.getMsgStatus() == MensagemStatus.ERRO) {
-				msg.setMsg("Campo(s) " + msg.getMsg() + "não preenchido(s) !");
+				msg.setMsg("Campo(s) " + msg.getMsg() + "nï¿½o preenchido(s) !");
 				return msg;
 			}
-			// e-mail, senha, endereço residencial
 			
 			if(cli.getNome().trim().equals("")) {
 				if (msg.getMsg() == null) {
@@ -89,15 +87,15 @@ public class ClienteValidaDados implements IStrategy {
 			}
 			if(cli.getGenero().equals("")) {
 				if (msg.getMsg() == null) {
-					msg.setMsg("Gênero");
+					msg.setMsg("Gï¿½nero");
 				} else {
-					msg.setMsg(msg.getMsg() + ", Gênero");
+					msg.setMsg(msg.getMsg() + ", Gï¿½nero");
 				}
 				msg.setMsgStatus(MensagemStatus.ERRO);
 			}
 			
 			if (msg.getMsgStatus() == MensagemStatus.ERRO) {
-				msg.setMsg("Campo(s) " + msg.getMsg() + "é/são obrigatório(s) !");
+				msg.setMsg("Campo(s) " + msg.getMsg() + "ï¿½/sï¿½o obrigatï¿½rio(s) !");
 				return msg;
 			}
 		} else {

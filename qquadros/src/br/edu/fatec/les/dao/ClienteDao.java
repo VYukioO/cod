@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +37,7 @@ public class ClienteDao implements IDao{
 		
 		String sql = 
 				"INSERT INTO tb_cliente "
-				+ "(cli_nome, cli_cpf, cli_dtNascimento, cli_genero, cli_telefone, cli_usu_id, cli_ativo, cli_dtCadastro, dt_Atualizacao) "
+				+ "(cli_nome, cli_cpf, cli_dtNascimento, cli_genero, cli_telefone, cli_usu_id, cli_ativo, cli_dtCadastro, cli_dtAtualizacao) "
 				+ " VALUES (?, ?, ?, ?, ?, ?, true, NOW(), NOW())";
 
 		try {
@@ -49,7 +50,7 @@ public class ClienteDao implements IDao{
 			pstm = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			pstm.setString(1, cli.getNome());
 			pstm.setString(2, cli.getCpf());
-			pstm.setObject(3, (LocalDateTime) cli.getDtNascimento());
+			pstm.setObject(3, (LocalDate) cli.getDtNascimento());
 			pstm.setString(4, cli.getGenero().toString());
 			pstm.setString(5, cli.getTelefone());
 			pstm.setLong(6, Long.parseLong(idUsuario));
@@ -97,7 +98,7 @@ public class ClienteDao implements IDao{
 			pstm = conn.prepareStatement(sql);
 			pstm.setString(1, cli.getNome());
 			pstm.setString(2, cli.getCpf());
-			pstm.setObject(3, (LocalDateTime) cli.getDtNascimento());
+			pstm.setObject(3, (LocalDate) cli.getDtNascimento());
 			pstm.setString(4, cli.getGenero().toString());
 			pstm.setString(5, cli.getTelefone());
 			pstm.setLong(6, cli.getId());
@@ -233,7 +234,7 @@ public class ClienteDao implements IDao{
 				c.setCpf(rs.getString("cli_cpf"));
 				c.setDtAtualizacao(rs.getObject("cli_dtAtualizacao", LocalDateTime.class));
 				c.setDtCadastro(rs.getObject("cli_dtCadastro", LocalDateTime.class));
-				c.setDtNascimento(rs.getObject("cli_dtNascimento", LocalDateTime.class));
+				c.setDtNascimento(rs.getObject("cli_dtNascimento", LocalDate.class));
 				c.setGenero(Generos.valueOf(rs.getString("cli_genero")));
 				c.setTelefone(rs.getString("cli_telefone"));
 				

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.edu.fatec.les.dominio.AEntidade;
-import br.edu.fatec.les.dominio.Imagem;
+// import br.edu.fatec.les.dominio.Imagem;
 import br.edu.fatec.les.dominio.modelo.Usuario;
 import br.edu.fatec.les.facade.Mensagem;
 import br.edu.fatec.les.facade.MensagemStatus;
@@ -19,34 +19,35 @@ import br.edu.fatec.les.util.ConnectionFactory;
 public class UsuarioDao implements IDao {
 	private Connection conn = null;
 	private Mensagem msg;
-	ImagemDao imagemDao = new ImagemDao();
+	// ImagemDao imagemDao = new ImagemDao();
 	
 	@Override
 	public Mensagem salvar(AEntidade entidade) throws SQLException {
 		Usuario usu = (Usuario) entidade;
 		conn = ConnectionFactory.getConnection();
 		msg = new Mensagem();
-		System.out.println("USUARIODAO SALVAR");
 		
 		PreparedStatement pstm = null;
 		ResultSet rs;
 		
+		// String sql =
+		// 		"INSERT INTO tb_usuario "
+		// 		+ "(usu_email, usu_senha, usu_ima_id, usu_ativo, usu_admin, usu_dtCadastro, usu_dtAtualizacao) "
+		// 		+ "VALUES (?, ?, 0, true, false, NOW(), NOW() ";
 		String sql =
 				"INSERT INTO tb_usuario "
 				+ "(usu_email, usu_senha, usu_ima_id, usu_ativo, usu_admin, usu_dtCadastro, usu_dtAtualizacao) "
-				+ "VALUES (?, ?, ?, true, false, NOW(), NOW() ";
+				+ "VALUES (?, ?, 1, true, false, NOW(), NOW()) ";
 		
 		
 		try {
-			String idImagem = imagemDao.salvar(usu.getImagem()).getMsg();
-			System.out.println(idImagem);
+			// String idImagem = imagemDao.salvar(usu.getImagem()).getMsg();
 			
 			pstm = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			pstm.setString(1, usu.getEmail());
 			pstm.setString(2, usu.getSenha());
-			pstm.setLong(3, Long.parseLong(idImagem));
-			System.out.println("set imagem");
-			System.out.println("atribuiu valores a sql");
+			// pstm.setLong(3, Long.parseLong(idImagem));
+			
 			pstm.executeUpdate();
 			
 			rs = pstm.getGeneratedKeys();
@@ -56,9 +57,7 @@ public class UsuarioDao implements IDao {
 				return msg;
 			}
 		} catch (SQLException e) {
-			System.out.println("erro aqui ");
-			System.out.println(e);
-			msg.setMsg("Ocorreu um erro durante a operação. Tente novamente.");
+			msg.setMsg("Ocorreu um erro durante a operaï¿½ï¿½o. Tente novamente.");
 			msg.setMsgStatus(MensagemStatus.ERRO);
 		} finally {
 			ConnectionFactory.closeConnection(conn, pstm);
@@ -81,21 +80,21 @@ public class UsuarioDao implements IDao {
 						+ "SET usu_email = ? "
 						+ "WHERE usu_id = ?";
 				
-				if(usu.getImagem().getId() == null) {
-					msg = imagemDao.atualizar(usu.getImagem());
-					if (msg.getMsgStatus() == MensagemStatus.ERRO) {
-						return msg;
-					}
-				}
+				// if(usu.getImagem().getId() == null) {
+				// 	msg = imagemDao.atualizar(usu.getImagem());
+				// 	if (msg.getMsgStatus() == MensagemStatus.ERRO) {
+				// 		return msg;
+				// 	}
+				// }
 				pstm = conn.prepareStatement(sql);
 				pstm.setString(1, usu.getEmail());
 				pstm.setLong(2, usu.getId());
 				pstm.executeUpdate();
-				msg.setMsg("Usuário atualizado com sucesso!");
+				msg.setMsg("Usuï¿½rio atualizado com sucesso!");
 				msg.setMsgStatus(MensagemStatus.SUCESSO);
 			}
 		} catch (SQLException e) {
-			msg.setMsg("Ocorreu um erro durante a operação. Tente novamente.");
+			msg.setMsg("Ocorreu um erro durante a operaï¿½ï¿½o. Tente novamente.");
 			msg.setMsgStatus(MensagemStatus.ERRO);
 		} finally {
 			ConnectionFactory.closeConnection(conn, pstm);
@@ -118,16 +117,16 @@ public class UsuarioDao implements IDao {
 		PreparedStatement pstm = null;
 		
 		try {
-			if (imagemDao.deletar(usu.getImagem()) == null) {
-				return null;
-			}
+			// if (imagemDao.deletar(usu.getImagem()) == null) {
+			// 	return null;
+			// }
 			
 			pstm = conn.prepareStatement(sql);
 			pstm.execute();
-			msg.setMsg("Usuário deletado com sucesso!");
+			msg.setMsg("Usuï¿½rio deletado com sucesso!");
 			msg.setMsgStatus(MensagemStatus.SUCESSO);
 		} catch (SQLException e) {
-			msg.setMsg("Ocorreu um erro durante a operação. Tente novamente.");
+			msg.setMsg("Ocorreu um erro durante a operaï¿½ï¿½o. Tente novamente.");
 			msg.setMsgStatus(MensagemStatus.ERRO);
 		} finally {
 			ConnectionFactory.closeConnection(conn, pstm);
@@ -165,18 +164,18 @@ public class UsuarioDao implements IDao {
 			rs = pstm.executeQuery();
 			
 			Usuario u = new Usuario();
-			Imagem i = new Imagem();
+			// Imagem i = new Imagem();
 			
 			while (rs.next()) {
 				u = new Usuario();
-				i = new Imagem();
+				// i = new Imagem();
 				
 				u.setId(Long.parseLong(rs.getString("usu_id")));
 				u.setEmail(rs.getString("usu_email"));
 				u.setSenha(rs.getString("usu_senha"));
 				u.setAdmin(rs.getBoolean("usu_admin"));
-				i.setId(rs.getLong("usu_ima_id"));
-				u.setImagem((Imagem) imagemDao.consultar(i).get(0));
+				// i.setId(rs.getLong("usu_ima_id"));
+				// u.setImagem((Imagem) imagemDao.consultar(i).get(0));
 				u.setAtivo(rs.getBoolean("usu_ativo"));
 				u.setDtCadastro(rs.getObject("usu_dtCadastro", LocalDateTime.class));
 				u.setDtAtualizacao(rs.getObject("usu_dtAtualizacao", LocalDateTime.class));

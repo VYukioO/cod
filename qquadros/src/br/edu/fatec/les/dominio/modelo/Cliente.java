@@ -1,6 +1,6 @@
 package br.edu.fatec.les.dominio.modelo;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 import br.edu.fatec.les.dominio.EntidadeNome;
@@ -9,11 +9,11 @@ import br.edu.fatec.les.dominio.enums.Generos;
 public class Cliente extends EntidadeNome {
 	private Usuario usuario;
 	private Generos genero;
-	private LocalDateTime dtNascimento;
+	private LocalDate dtNascimento;
 	private String cpf;
 	private String telefone;
 	private List<Endereco> enderecos;
-	
+
 	public Usuario getUsuario() {
 		return usuario;
 	}
@@ -26,10 +26,10 @@ public class Cliente extends EntidadeNome {
 	public void setGenero(Generos genero) {
 		this.genero = genero;
 	}
-	public LocalDateTime getDtNascimento() {
+	public LocalDate getDtNascimento() {
 		return dtNascimento;
 	}
-	public void setDtNascimento(LocalDateTime dtNascimento) {
+	public void setDtNascimento(LocalDate dtNascimento) {
 		this.dtNascimento = dtNascimento;
 	}
 	public String getCpf() {

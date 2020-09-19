@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import br.edu.fatec.les.dao.ClienteDao;
 import br.edu.fatec.les.dominio.AEntidade;
-import br.edu.fatec.les.dominio.Imagem;
+// import br.edu.fatec.les.dominio.Imagem;
 import br.edu.fatec.les.dominio.modelo.Cliente;
 import br.edu.fatec.les.dominio.modelo.Usuario;
 import br.edu.fatec.les.facade.Mensagem;
@@ -23,7 +23,7 @@ public class UsuarioVH implements IViewHelper {
 	@Override
 	public AEntidade getEntidade(HttpServletRequest request) {
 		Usuario usu = new Usuario();
-		ImagemVH imaVH = new ImagemVH();
+		// ImagemVH imaVH = new ImagemVH();
 		String tarefa = request.getParameter("tarefa");
 		
 		if (tarefa.equals("atualizarCliente") ||
@@ -35,19 +35,13 @@ public class UsuarioVH implements IViewHelper {
 		usu.setAdmin(false);
 		usu.setEmail(request.getParameter("txtEmail"));
 		usu.setSenha(request.getParameter("txtSenha"));
-		System.out.println("usuarioVH");
-		System.out.println(usu.getEmail());
-		System.out.println(usu.getSenha());
 		
-		
-		System.out.println("suaruoi vh");
-		usu.setImagem((Imagem) imaVH.getEntidade(request));
-		System.out.println("ALO");
-		System.out.println(usu.getImagem().getId());
-		System.out.println(usu.getImagem().getDescricao());
-		System.out.println(usu.getImagem().getCaminho());
-		System.out.println(usu.getImagem().getFoto());
-		System.out.println(usu.getImagem().getDtCadastro());
+		// usu.setImagem((Imagem) imaVH.getEntidade(request));
+		// System.out.println(usu.getImagem().getId());
+		// System.out.println(usu.getImagem().getDescricao());
+		// System.out.println(usu.getImagem().getCaminho());
+		// System.out.println(usu.getImagem().getFoto());
+		// System.out.println(usu.getImagem().getDtCadastro());
 		return usu;
 	}
 
@@ -56,12 +50,26 @@ public class UsuarioVH implements IViewHelper {
 		String tarefa = req.getParameter("tarefa");
 		if (tarefa.equals("alterarSenha")) {
 			req.getRequestDispatcher("edtSenha.jsp").forward(req, resp);
-		} else {
+		} else if (tarefa.equals("cadastrarUsuario")) {
 			Resultado resultado = new Resultado();
 			resultado = (Resultado) req.getAttribute("resultado");
-			if (resultado.getEntidade().isEmpty() || resultado.getEntidade() == null) {
+			boolean erro = false;
+			
+			for (Mensagem mensagem : resultado.getMsgs()) {
+				if(mensagem.getMsgStatus() == MensagemStatus.ERRO) {
+					erro = true;
+				}
+			}
+			if (erro) {
+				req.getRequestDispatcher("cadUsuario.jsp").forward(req, resp);
+			}
+		} else {
+			Resultado resultado = new Resultado();
+			
+			resultado = (Resultado) req.getAttribute("resultado");
+			if (resultado.getEntidade() == null) {
 				Mensagem msg = new Mensagem();
-				msg.setMsg("Login e/ou senha inválido(s)!");
+				msg.setMsg("Login e/ou senha invï¿½lido(s)!");
 				msg.setMsgStatus(MensagemStatus.ERRO);
 				
 				ArrayList<Mensagem> msgs = new ArrayList<Mensagem>();

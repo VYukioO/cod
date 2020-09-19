@@ -38,11 +38,9 @@ public class ServletController extends HttpServlet {
     	// Usuario
         commandMap.put("loginUsuario", new ConsultarCommand());
         commandMap.put("logoutUsuario", new ConsultarCommand());
-        commandMap.put("cadastrarUsuario", new SalvarCommand());
         commandMap.put("alterarSenha", new AtualizarCommand());
         vhMap.put("loginUsuario", new UsuarioVH());
         vhMap.put("logoutUsuario", new UsuarioVH());
-        vhMap.put("cadastrarUsuario", new UsuarioVH());
         vhMap.put("alterarSenha", new UsuarioVH());
 
     	// Cliente
@@ -81,23 +79,16 @@ public class ServletController extends HttpServlet {
     	
     	try {
 			tarefa = req.getParameter("tarefa");
-			System.out.println(tarefa);
 			Resultado resultado;
 			vh = vhMap.get(tarefa);
-			System.out.println(vh.toString());
-			System.out.println(req);
 			AEntidade entidade = vh.getEntidade(req);
-			System.out.println("LINHA 90 SERVLET CONTORL");
 			ICommand command = commandMap.get(tarefa);
-			System.out.println(command);
 			resultado = command.execute(entidade);
 			
-			System.out.println(resultado);
 			req.setAttribute("resultado", resultado);
 			
 			vh.setEntidade(req, resp);
 		} catch (Exception e) {
-			System.out.println(e);
 			System.err.println(e.toString());
 		}
     }

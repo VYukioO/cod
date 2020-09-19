@@ -21,7 +21,6 @@ public class ConnectionFactory {
 			
 			return conn;
 		} catch(SQLException | ClassNotFoundException e) {
-			System.out.println(e);
 			return null;
 		}
 	}
